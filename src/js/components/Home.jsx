@@ -1,6 +1,5 @@
 import React from "react";
-import { ListaDeLaCompra } from "./ListaDeLaCompra";
-import { TarjetaDeMago } from "./TarjetaDeMago";
+import { TarjetaDeMago } from "./TarjetaDeMago.jsx";
 
 
 

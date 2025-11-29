@@ -1,22 +1,38 @@
 import React from "react";
-
+import { useEffect, useState } from "react";
 
 export const TarjetaDeMago = () => {
-
+    const [magos, setMagos]= useState([]); 
+    const getMagos = () => {
+        fetch("https:hp-api.onrender.com/api/characters") //URL a la que pido datos
+        .then(response => response.json()) //coge la respuesta del fetch y la convierte a json.
+        .then(data => setMagos(data)) //con la respuesta (datos) convertida, ahora la paso a los datos de mi proyecto. 
+        .catch(error => console.log(error)) //captura el error si hay alguno.
+    };
+    useEffect(() => {
+        getMagos();
+    }, []);
+    useEffect(() => {
+        console.log(magos);
+    }, [magos]);
     return (
         <>
-            <div className="card">
-                <div className="card-body">
+        {magos.map((cadaMago) => {
+            return(
+                <div className="card">
+                <div className="card-body" key={cadaMago.id}>
                     <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYUB-W_y_MKBEiMKMsS9Pg8H7h4irTjKG-4Q&s"
-                        alt="Sombrero Seleccionador"
+                        src={cadaMago.image}
+                        alt={cadaMago.name}
                         className="card-img-top"
                     />
                     <h5 className="card-title">
-                        Nombre del Mago: Sombrero Seleccionador </h5>
-                    <p>Casa: Hogwarts</p>
+                        Nombre del Mago: {cadaMago.name} </h5>
+                    <p>Casa: {cadaMago.house}</p>
                 </div>
             </div>
+            )
+        })}
         </>
     )
 }
